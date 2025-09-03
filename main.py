@@ -51,14 +51,10 @@ async def main():
     health_thread = threading.Thread(target=start_health_server, daemon=True)
     health_thread.start()
     
-    # Check required environment variables
-    required_vars = ['DISCORD_TOKEN', 'VALORANT_API_KEY']
-    missing_vars = [var for var in required_vars if not os.getenv(var)]
-    
-    if missing_vars:
-        print(f"❌ Missing environment variables: {', '.join(missing_vars)}")
-        print("Please configure these in your Northflank service settings")
-        return
+    # Set environment variables directly
+    os.environ['DISCORD_TOKEN'] = 'MTQwMDE5MzIyMjgxMDE0NDk0Mg.GzdOxi.eFkGpEzE2QW2nknnTlvgU85FNZm7h6oqO3MnhE'
+    os.environ['VALORANT_API_KEY'] = 'HDEV-a6371732-b2b9-467c-92d0-47b438225d48'
+    os.environ['DEFAULT_REGION'] = 'ap'
     
     print("✅ Environment variables configured")
     
