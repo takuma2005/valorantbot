@@ -3,7 +3,10 @@ import asyncio
 import discord
 from discord.ext import commands
 
-# 環境変数を直接参照（.envファイル不要）
+# 環境変数を直接設定
+os.environ['DISCORD_TOKEN'] = 'MTQwMDE5MzIyMjgxMDE0NDk0Mg.GBraiV.r02EsECXv461B0hwCx0NkNFAEjTRAmpD8bki9I'
+os.environ['VALORANT_API_KEY'] = 'HDEV-a6371732-b2b9-467c-92d0-47b438225d48'
+os.environ['DEFAULT_REGION'] = 'ap'
 
 class ValorantBot(commands.Bot):
     def __init__(self):
