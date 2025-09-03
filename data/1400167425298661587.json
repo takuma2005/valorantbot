@@ -1,0 +1,68 @@
+{
+  "players": {
+    "298254337379926016": {
+      "name": "shimons",
+      "tag": "0210",
+      "region": "ap",
+      "puuid": "210e5ac9-0413-594e-8a0a-c42e4de96ead",
+      "registered_at": "2025-09-04T00:30:17.229985",
+      "updated_at": "2025-09-04T00:30:17.229985"
+    },
+    "53f699ad-9e59-5403-8194-80133d0b47f9": {
+      "name": "wec tarkun",
+      "tag": "jdg",
+      "region": "ap",
+      "puuid": "53f699ad-9e59-5403-8194-80133d0b47f9",
+      "registered_at": "2025-09-04T00:35:10.075637",
+      "updated_at": "2025-09-04T00:35:10.075637"
+    },
+    "a166a3ed-d0b9-5bce-b265-81c5a1990529": {
+      "name": "i poop 5 times",
+      "tag": "a day",
+      "region": "ap",
+      "puuid": "a166a3ed-d0b9-5bce-b265-81c5a1990529",
+      "registered_at": "2025-09-04T00:42:17.899133",
+      "updated_at": "2025-09-04T00:42:17.899133"
+    },
+    "93f55aed-dd9a-551c-9472-091198e1a394": {
+      "name": "WEC Sawada",
+      "tag": "1234",
+      "region": "ap",
+      "puuid": "93f55aed-dd9a-551c-9472-091198e1a394",
+      "registered_at": "2025-09-04T00:42:44.049508",
+      "updated_at": "2025-09-04T00:42:44.058064"
+    },
+    "be8d734a-2f05-5c8e-878c-f02217b2ddf7": {
+      "name": "KAYO義塾大学セージ経済学部",
+      "tag": "話聞こう科",
+      "region": "ap",
+      "puuid": "be8d734a-2f05-5c8e-878c-f02217b2ddf7",
+      "registered_at": "2025-09-04T00:43:08.705559",
+      "updated_at": "2025-09-04T00:43:08.712601"
+    },
+    "827c802c-461b-5dc7-b3c9-3f7c57bd22b7": {
+      "name": "Colon3",
+      "tag": "BOOM",
+      "region": "ap",
+      "puuid": "827c802c-461b-5dc7-b3c9-3f7c57bd22b7",
+      "registered_at": "2025-09-04T00:46:10.401242",
+      "updated_at": "2025-09-04T00:46:10.402242"
+    },
+    "6daa5af2-2c8c-576b-8c54-146dd2c2ac03": {
+      "name": "ですいーたーです",
+      "tag": "死喰い人",
+      "region": "ap",
+      "puuid": "6daa5af2-2c8c-576b-8c54-146dd2c2ac03",
+      "registered_at": "2025-09-04T00:46:22.785929",
+      "updated_at": "2025-09-04T00:46:22.795011"
+    },
+    "82c677ac-393c-5083-ba6e-c872d1017e3c": {
+      "name": "JAMES  RODRÍGUEZ",
+      "tag": "cnbs",
+      "region": "ap",
+      "puuid": "82c677ac-393c-5083-ba6e-c872d1017e3c",
+      "registered_at": "2025-09-04T00:46:30.581969",
+      "updated_at": "2025-09-04T00:46:30.589010"
+    }
+  }
+}
