@@ -1,27 +1,23 @@
-# Use official Python runtime as base image
+# Use the official Python runtime as the base image
 FROM python:3.11-slim
 
-# Set working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Set environment variables
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONDONTWRITEBYTECODE=1
-
-# Copy requirements file
+# Copy the requirements file into the container
 COPY requirements.txt .
 
-# Install dependencies
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
+# Copy the application code into the container
 COPY . .
 
 # Create data directory
 RUN mkdir -p /app/data
 
-# Expose port for health checks
+# Expose the port your app runs on
 EXPOSE 8000
 
-# Run the bot
-CMD ["python", "bot.py"]
+# Run the application
+CMD ["python", "main.py"]

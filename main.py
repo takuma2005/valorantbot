@@ -1,83 +1,84 @@
-import os
+#!/usr/bin/env python3
+"""
+Discord Valorant Bot - Main Entry Point
+Northflank compatible with health check endpoint
+"""
 import asyncio
-import discord
-from discord.ext import commands
-from dotenv import load_dotenv
+import threading
+import os
+import sys
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
-# 環境変数を読み込み
-load_dotenv()
-
-class ValorantBot(commands.Bot):
-    def __init__(self):
-        intents = discord.Intents.default()
-        intents.message_content = True
-        
-        super().__init__(
-            command_prefix='!',
-            intents=intents,
-            help_command=None
-        )
-    
-    async def setup_hook(self):
-        """Bot起動時の初期化処理"""
-        print("Loading commands...")
-        
-        # コマンドを読み込み
-        await self.load_extension('src.commands.leaderboard')
-        await self.load_extension('src.commands.register')
-        await self.load_extension('src.commands.rank')
-        await self.load_extension('src.commands.unregister')
-        await self.load_extension('src.commands.auto_update')
-        await self.load_extension('src.commands.delete_leaderboard')
-        
-        print("Commands loaded successfully")
-        
-        # スラッシュコマンドを同期
-        guild_id = os.getenv('DISCORD_GUILD_ID')
-        if guild_id:
-            guild = discord.Object(id=int(guild_id))
-            self.tree.copy_global_to(guild=guild)
-            await self.tree.sync(guild=guild)
-            print(f"Slash commands synced to guild {guild_id}")
+class HealthHandler(BaseHTTPRequestHandler):
+    """Simple health check handler"""
+    def do_GET(self):
+        if self.path == '/health':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            self.wfile.write(b'{"status": "healthy", "service": "valorant-bot"}')
+        elif self.path == '/':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            self.wfile.write(b'{"message": "Valorant Discord Bot is running!"}')
         else:
-            await self.tree.sync()
-            print("Slash commands synced globally")
+            self.send_response(404)
+            self.end_headers()
     
-    async def on_ready(self):
-        """Bot準備完了時"""
-        print(f"Bot logged in as {self.user}")
-        print(f"Serving {len(self.guilds)} guilds")
-        
-        # アクティビティを設定
-        activity = discord.Game(name="Valorant Rankings")
-        await self.change_presence(activity=activity)
-        
-        # 自動更新タスクを開始
-        from src.commands.auto_update import AutoUpdate
-        auto_update_cog = self.get_cog('AutoUpdate')
-        if auto_update_cog and not auto_update_cog.auto_leaderboard_update.is_running():
-            auto_update_cog.auto_leaderboard_update.start()
+    def log_message(self, format, *args):
+        # Suppress HTTP server logs
+        pass
+
+def start_health_server():
+    """Start health check server on port 8000"""
+    try:
+        server = HTTPServer(('0.0.0.0', 8000), HealthHandler)
+        print("Health check server started on http://0.0.0.0:8000")
+        server.serve_forever()
+    except Exception as e:
+        print(f"Failed to start health server: {e}")
 
 async def main():
-    """メイン関数"""
-    # 環境変数の確認
+    """Main application entry point"""
+    print("=" * 50)
+    print("🤖 Starting Valorant Discord Bot")
+    print(f"Python version: {sys.version}")
+    print(f"Working directory: {os.getcwd()}")
+    print("=" * 50)
+    
+    # Start health check server in background
+    health_thread = threading.Thread(target=start_health_server, daemon=True)
+    health_thread.start()
+    
+    # Check required environment variables
     required_vars = ['DISCORD_TOKEN', 'VALORANT_API_KEY']
     missing_vars = [var for var in required_vars if not os.getenv(var)]
     
     if missing_vars:
-        print(f"Missing environment variables: {', '.join(missing_vars)}")
-        print("Please check your .env file")
+        print(f"❌ Missing environment variables: {', '.join(missing_vars)}")
+        print("Please configure these in your Northflank service settings")
         return
     
-    # Botを起動
-    bot = ValorantBot()
+    print("✅ Environment variables configured")
     
+    # Import and start Discord bot
     try:
-        await bot.start(os.getenv('DISCORD_TOKEN'))
-    except discord.LoginFailure:
-        print("Invalid Discord token")
+        from bot import main as bot_main
+        print("🚀 Starting Discord bot...")
+        await bot_main()
+    except ImportError as e:
+        print(f"❌ Import error: {e}")
+        sys.exit(1)
     except Exception as e:
-        print(f"Error starting bot: {e}")
+        print(f"❌ Bot error: {e}")
+        sys.exit(1)
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("\n👋 Bot stopped by user")
+    except Exception as e:
+        print(f"❌ Fatal error: {e}")
+        sys.exit(1)
