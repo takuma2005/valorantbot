@@ -2,10 +2,8 @@ import os
 import asyncio
 import discord
 from discord.ext import commands
-from dotenv import load_dotenv
 
-# 環境変数を読み込み
-load_dotenv()
+# 環境変数を直接参照（.envファイル不要）
 
 class ValorantBot(commands.Bot):
     def __init__(self):
