@@ -69,6 +69,8 @@ async def main():
     except Exception as e:
         print(f"❌ Bot error: {e}")
         sys.exit(1)
+    
+    print("ボット正常終了")
 
 if __name__ == "__main__":
     try:
