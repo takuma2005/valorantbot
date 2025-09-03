@@ -16,8 +16,5 @@ COPY . .
 # Create data directory
 RUN mkdir -p /app/data
 
-# Expose the port your app runs on
-EXPOSE 8000
-
 # Run the application
-CMD ["python", "main.py"]
+CMD ["python", "bot.py"]
