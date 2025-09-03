@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  valorant-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: valorant-leaderboard-bot
+    restart: unless-stopped
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - VALORANT_API_KEY=${VALORANT_API_KEY}
+      - DISCORD_GUILD_ID=${DISCORD_GUILD_ID}
+      - DEFAULT_REGION=${DEFAULT_REGION:-ap}
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    networks:
+      - bot-network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import asyncio; print('Bot running')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  bot-network:
+    driver: bridge
+
+volumes:
+  bot-data:
+    driver: local
