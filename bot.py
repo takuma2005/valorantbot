@@ -4,7 +4,6 @@ import discord
 from discord.ext import commands
 
 # 環境変数を直接設定
-os.environ['DISCORD_TOKEN'] = 'MTQwMDE5MzIyMjgxMDE0NDk0Mg.GLmWud.9GQU81CB9-8HDv0cCsgZZIwPpcGTKZ8cXlXPpo'
 os.environ['VALORANT_API_KEY'] = 'HDEV-a6371732-b2b9-467c-92d0-47b438225d48'
 os.environ['DEFAULT_REGION'] = 'ap'
 
