@@ -2,6 +2,17 @@ import os
 import asyncio
 import discord
 from discord.ext import commands
+from dotenv import load_dotenv
+
+# .envファイルを読み込み
+load_dotenv()
+
+# トークンを取得
+TOKEN = os.getenv('DISCORD_TOKEN')
+
+if not TOKEN:
+    print("Error: DISCORD_TOKEN not found in .env file")
+    exit(1)
 
 # 環境変数を直接設定
 os.environ['VALORANT_API_KEY'] = 'HDEV-a6371732-b2b9-467c-92d0-47b438225d48'
@@ -73,7 +84,7 @@ async def main():
     bot = ValorantBot()
     
     try:
-        await bot.start(os.getenv('DISCORD_TOKEN'))
+        await bot.start(TOKEN)
     except discord.LoginFailure:
         print("Invalid Discord token")
     except Exception as e:
