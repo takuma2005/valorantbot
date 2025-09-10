@@ -5,10 +5,12 @@ import os
 from ..valorant_api import ValorantAPI
 from ..data_manager import DataManager
 from ..utils.ui_helpers import UIHelpers
+from ..retry_manager import RetryManager
 
 class Leaderboard(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.retry_manager = RetryManager(os.getenv('VALORANT_API_KEY'))
     
     @app_commands.command(name="leaderboard", description="ValorantランキングでサーバーLeaderboardを表示 (デフォルト: AP)")
     @app_commands.describe(
@@ -46,9 +48,16 @@ class Leaderboard(commands.Cog):
             # プレイヤーリストを準備
             player_list = [{"name": p["name"], "tag": p["tag"]} for p in registered_players]
             
-            # Leaderboardデータを取得
-            leaderboard_data = await valorant_api.get_leaderboard_data(region, player_list)
+            # Leaderboardデータを取得（キャッシュ付き）
+            leaderboard_data, failed_players = await valorant_api.get_leaderboard_data(
+                region, player_list, str(interaction.guild_id)
+            )
             sorted_data = valorant_api.sort_by_rank(leaderboard_data)
+            
+            # 失敗したプレイヤーがいる場合、再試行をスケジュール
+            if failed_players:
+                await self.retry_manager.immediate_retry(str(interaction.guild_id), failed_players)
+                print(f"Scheduled retry for {len(failed_players)} players")
             
             # Embedを作成
             embed = self.create_leaderboard_embed(sorted_data, region, len(registered_players))
@@ -77,7 +86,7 @@ class Leaderboard(commands.Cog):
             return embed
         
         description = ""
-        display_limit = min(len(sorted_data), 15)
+        display_limit = min(len(sorted_data), 20)
         
         for i in range(display_limit):
             player = sorted_data[i]
@@ -141,8 +150,8 @@ class Leaderboard(commands.Cog):
         description += "\n"
         
         # 追加統計情報
-        if len(sorted_data) > 15:
-            description += f"\n🔽 **他 {len(sorted_data) - 15} 名のプレイヤー**"
+        if len(sorted_data) > 20:
+            description += f"\n🔽 **他 {len(sorted_data) - 20} 名のプレイヤー**"
         
         embed.description = description
         
