@@ -72,14 +72,6 @@
       "registered_at": "2025-09-04T02:09:05.257809",
       "updated_at": "2025-09-04T02:09:05.266928"
     },
-    "517eadec-6bfc-5e95-b5bb-2998c4c7fcba": {
-      "name": "WECB GOONER21",
-      "tag": "diddy",
-      "region": "ap",
-      "puuid": "517eadec-6bfc-5e95-b5bb-2998c4c7fcba",
-      "registered_at": "2025-09-04T02:03:50.321635",
-      "updated_at": "2025-09-04T02:03:50.329264"
-    },
     "9c419cb1-42c7-5122-a553-d308e190443d": {
       "name": "WEC Cazkla霰弹",
       "tag": "MOODA",
@@ -87,6 +79,30 @@
       "puuid": "9c419cb1-42c7-5122-a553-d308e190443d",
       "registered_at": "2025-09-04T02:08:48.915850",
       "updated_at": "2025-09-04T02:08:48.923438"
+    },
+    "d6b72e83-9084-55ad-8854-aa81154955fe": {
+      "name": "JDG DRUG DEALER",
+      "tag": "SHAKY",
+      "region": "ap",
+      "puuid": "d6b72e83-9084-55ad-8854-aa81154955fe",
+      "registered_at": "2025-09-10T02:54:04.855371",
+      "updated_at": "2025-09-10T02:54:04.856223"
+    },
+    "96e84ceb-ceb0-50b0-b7fd-cd1a963fbf53": {
+      "name": "shio ",
+      "tag": "sa1t",
+      "region": "ap",
+      "puuid": "96e84ceb-ceb0-50b0-b7fd-cd1a963fbf53",
+      "registered_at": "2025-09-10T02:54:59.726721",
+      "updated_at": "2025-09-10T02:54:59.727267"
+    },
+    "4be06557-3d87-5a58-9d04-d01b31923e42": {
+      "name": "WEC taimaihunter",
+      "tag": "jdgwi",
+      "region": "ap",
+      "puuid": "4be06557-3d87-5a58-9d04-d01b31923e42",
+      "registered_at": "2025-09-10T02:55:36.795601",
+      "updated_at": "2025-09-10T02:55:36.795963"
     }
   },
   "auto_update": {
